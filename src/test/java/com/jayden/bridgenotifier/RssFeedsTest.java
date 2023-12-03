@@ -3,8 +3,9 @@ package com.jayden.bridgenotifier;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import javax.sql.rowset.spi.XmlReader;
+
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class RssFeedsTest {
 
@@ -14,8 +15,8 @@ class RssFeedsTest {
     void download_rss_feed() {
         RssFeeds rssFeeds = RssFeeds.from("https://www.bridgewinners.com/rss/articleFeed.xml");
 
-        rssFeeds.download();
+        XmlReader xmlReader = rssFeeds.download();
 
-        assertThat(rssFeeds).isNotNull();
+        assertThat(xmlReader).isNotNull();
     }
 }
