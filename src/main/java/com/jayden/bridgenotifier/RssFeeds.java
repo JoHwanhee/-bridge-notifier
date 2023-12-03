@@ -1,10 +1,15 @@
 package com.jayden.bridgenotifier;
 
-import javax.sql.RowSetInternal;
-import javax.sql.rowset.WebRowSet;
-import javax.sql.rowset.spi.XmlReader;
-import java.io.Reader;
-import java.sql.SQLException;
+import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class RssFeeds {
 
@@ -18,17 +23,17 @@ public class RssFeeds {
         return new RssFeeds(FeedUri.by(url));
     }
 
-    public XmlReader download() {
-        return new XmlReader() {
-            @Override
-            public void readXML(WebRowSet caller, Reader reader) throws SQLException {
+    public Document download() throws IOException, ParserConfigurationException, SAXException {
+        URL url = new URL(feedUri.uri().toString());
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("GET");
 
-            }
-
-            @Override
-            public void readData(RowSetInternal caller) throws SQLException {
-
-            }
-        };
+        try (InputStream inputStream = connection.getInputStream()) {
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            return builder.parse(inputStream);
+        } finally {
+            connection.disconnect();
+        }
     }
 }
