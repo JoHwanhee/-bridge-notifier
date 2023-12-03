@@ -1,1 +1,1 @@
-# -bridge-notifier
+# bridge-notifier
