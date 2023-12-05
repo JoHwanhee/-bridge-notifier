@@ -7,14 +7,10 @@ import org.mockserver.client.MockServerClient;
 import org.mockserver.integration.ClientAndServer;
 import org.mockserver.model.BinaryBody;
 import org.mockserver.model.Header;
-import org.mockserver.model.HttpRequest;
-import org.mockserver.model.HttpResponse;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
-import javax.sql.rowset.spi.XmlReader;
 import javax.xml.parsers.ParserConfigurationException;
-
 import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
