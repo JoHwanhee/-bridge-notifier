@@ -1,26 +1,28 @@
-package com.jayden.bridgenotifier;
+package com.jayden.bridgenotifier.rss.model;
 
 import org.junit.jupiter.api.Test;
 
-import java.net.URI;
-
+import static com.jayden.bridgenotifier.rss.ConvertingFunctions.apply;
 import static org.junit.jupiter.api.Assertions.*;
 
-class FeedUriTest {
+class FeedUrlTest {
 
 
     @Test
     void validUrlShouldReturnFeedUri() {
         String validUrl = "https://www.example.com/feed";
-        FeedUri feedUri = FeedUri.by(validUrl);
-        assertEquals(URI.create(validUrl), feedUri.uri());
+
+        FeedUrl feedUrl = apply(validUrl);
+
+        assertEquals(validUrl, feedUrl.url().toString());
     }
 
     @Test
     void invalidUrlShouldThrowException() {
         String invalidUrl = "invalidurl";
+
         assertThrows(IllegalArgumentException.class, () -> {
-            FeedUri.by(invalidUrl);
+            apply(invalidUrl);
         });
     }
 }
